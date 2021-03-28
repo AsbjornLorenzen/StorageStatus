@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1>
+        StorageStatus
+    </h1>
+    <table class="storagetable">
+        <tr>
+            <th>Name</th>
+            <th>Lot nr</th>
+            <th>Article nr</th>
+            <th>Storage type</th>
+            <th>Amount in stock</th>
+            <th>
+                <div class="homebutton">
+                    <button class="linkbutton">
+                        <a id="addlink" href="/addnew/">Add item</a>
+                    </button>
+                </div> 
+            </th>
+            <th>
+                <div class="homebutton">
+                    <button class="linkbutton">
+                        <a href="/devicemanager/">Devicemanager</a>
+                    </button>
+                </div> 
+            </th>
+        </tr>
+        {% for product in products %}
+            <tr>
+                <td>{{ names[product.articlenr] }}</td>
+                <td>{{ product.lotnr }}</td>
+                <td>{{ product.articlenr }}</td>
+                <td>{{ product.storagetype }}</td>
+                <td>{{ product.amountinstore }}</td>
+                <td>
+                    <div class="homebutton">
+                        <button class="linkbutton" id="tablebutton">
+                            <a href="/delete/{{product.lotnr}}"> Delete </a>
+                        </button>
+                    </div>                     
+                    <br>
+                    <div class="homebutton">
+                        <button class="linkbutton" id="tablebutton">
+                            <a href="/takeone/{{product.lotnr}}"> Remove one</a>
+                        </button>
+                    </div> 
+                </td>
+                <td>
+                    <form action='/addtodevice/{{product.lotnr}}' method="POST">
+                        <input type="text" name="amounttoadd" id="amounttoadd" size="12"> 
+                        <br>
+                        <div class="homebutton">
+                            <button class="linkbutton" id="addtodevicebutton" type="submit">Add to device</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <table class="devicetable">
+        <tr>
+            <th>    
+                <div class="deviceselection">
+                    <div class="dropdown">
+                        <button class="dropbtn">Device nr {{ devicedata.devicenr }}</button>
+                        <div class="dropdown-content">
+                            {% for devnum in devicenrs %}
+                                <a href="/selectdevice/{{devnum}}">{{ devnum }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div></th>
+            <th>Lot nr</th>
+            <th>Amount</th>
+        </tr>
+        {% for componenttype in devicedata.contents %}
+            {% for LOT, amount in devicedata.contents[componenttype].items() %}
+                <tr>
+                    <td>{{ componenttype }}</td>
+                    <td>{{ LOT }}</td>
+                    <td>{{ amount }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

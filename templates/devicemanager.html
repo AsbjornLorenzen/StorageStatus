@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+<div class='content'>
+
+    <table class='devicetable'>
+        <tr>
+            <th>Devices</th>
+            {% for name in names.values() %}
+                <th>{{ name }}</th>
+            {% endfor %}
+            <th>
+                <button class="linkbutton">
+                    <a href="/devicemanager/createnew/">Add device</a> 
+                </button>
+            </th>
+        </tr>
+        {% for deviceno in allsum %}
+            <tr>
+            <td>Device {{ deviceno }}</td>
+            {% for name in names.values() %}
+                <td>{{ allsum[deviceno][name] }}</td>
+            {% endfor %}
+            <td>
+                <button class="linkbutton">
+                    <a href="/devicemanager/deletedevice/{{deviceno}}">Delete</a></td>
+                </button>                
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="deviceselection" id="recentlydeleted">
+        <div class="dropdown">
+            <button class="linkbutton">Recently deleted</button>
+            <div class="dropdown-content">
+                {% for dev in deleteddevices %}
+                    <a href="/devicemanager/restoredevice/{{dev.devicenr}}">Restore device {{dev.devicenr}}</a>
+                {% endfor %}
+                {% if not deleteddevices %}
+                    <p>No deleted devices</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="homebutton">
+        <button class="linkbutton">
+            <a href="/">View storage</a>
+        </button>
+    </div>
+</div>
+{% endblock %}

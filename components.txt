@@ -1,0 +1,6 @@
+0001:Casing
+0002:CPU
+0003:Motherboard
+0004:Battery
+0005:RAM
+0006:Harddrive

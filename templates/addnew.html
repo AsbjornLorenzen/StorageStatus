@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+<div class="content">
+    <h1>
+        StorageStatus - Add new item
+    </h1>
+    <table>
+        <tr>
+            <th>Article number</th>
+            <th>Storage type</th>
+            <th>Amount in stock</th>
+            <th>
+                <div class="homebutton">
+                    <button class="linkbutton">
+                        <a href="/">View storage</a>
+                    </button>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <form action="/addnew/" method="POST">
+                <td><input type="text" name="articlenr" id="articlenr"></td>
+                <td><input type="text" name="storagetype" id="storagetype"></td>
+                <td><input type="text" name="amountinstore" id="amountinstore"></td>
+                <td><input type="submit" class="linkbutton" value="Add Item"></td>
+            </form> 
+        </tr>
+    </table>
+    <div class="dropdown">
+        <button class="linkbutton">Article names</button>
+        <div class="dropdown-content" id="articlenames">
+            <p class="articlenames">{{ namestext }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
